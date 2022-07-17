@@ -1,24 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinishController : MonoBehaviour
 {
     [SerializeField] string playerTag;
-    // Start is called before the first frame update
-    void Start(){
-        
-    }
+    [SerializeField] float invokeValue;
+    [SerializeField] ParticleSystem finishEffect;
 
-    // Update is called once per frame
-    void Update(){
-        
+    // Start is called before the first frame update
+    void Start()
+    {
+        invokeValue = 1f;
     }
 
     void OnTriggerEnter2D(Collider2D collider){
         if(collider.tag == playerTag)
         {
-            Debug.Log("Finish");
+            finishEffect.Play();
+            Debug.Log("It's end! You won!");
+            Invoke("ReloadScene", invokeValue);
         }
     }
+    void ReloadScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 }
