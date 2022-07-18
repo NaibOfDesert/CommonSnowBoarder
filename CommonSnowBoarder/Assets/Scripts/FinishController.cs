@@ -12,7 +12,7 @@ public class FinishController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        invokeValue = 1f;
+        invokeValue = 0.5f;
     }
 
     void OnTriggerEnter2D(Collider2D collider){
@@ -20,9 +20,12 @@ public class FinishController : MonoBehaviour
         {
             finishEffect.Play();
             Debug.Log("It's end! You won!");
+            GetComponent<AudioSource>().Play();
             Invoke("ReloadScene", invokeValue);
+            
         }
     }
+
     void ReloadScene()
     {
         SceneManager.LoadScene(0);

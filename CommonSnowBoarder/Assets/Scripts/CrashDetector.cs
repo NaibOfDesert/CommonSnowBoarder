@@ -9,7 +9,8 @@ public class CrashDetector : MonoBehaviour
     [SerializeField] float invokeValue;
     [SerializeField] ParticleSystem crashEffect;
     [SerializeField] ParticleSystem hurtEffect;
-
+    [SerializeField] AudioClip audioClip;
+    
     // Start is called before the first frame update
     void Start()    
     {
@@ -23,6 +24,7 @@ public class CrashDetector : MonoBehaviour
             crashEffect.Play();
             hurtEffect.Play();
             Debug.Log("It's hurt! Start again!");
+            GetComponent<AudioSource>().PlayOneShot(audioClip);
             Invoke("ReloadScene", invokeValue);
         }
     }
