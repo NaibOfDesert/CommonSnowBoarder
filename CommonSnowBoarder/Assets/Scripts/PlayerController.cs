@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float baseSpeed;
     Rigidbody2D rigidbody2d;
     SurfaceEffector2D surfaceEffector2D;
+    bool canMove;
 
     // Start is called before the first frame update
     void Start(){
@@ -19,19 +20,21 @@ public class PlayerController : MonoBehaviour
         baseSpeed = 20f;
         rigidbody2d = GetComponent<Rigidbody2D>();
         surfaceEffector2D = FindObjectOfType<SurfaceEffector2D>();
+        canMove = true;
     }
 
     // Update is called once per frame
     void Update(){
-        RotatePlayer();
-        RespondToBoost();
+        if (canMove)
+        {
+            RotatePlayer();
+            RespondToBoost();
+        }
     }
-
-
     void RotatePlayer()
     {
         if (Input.GetKey(KeyCode.LeftArrow))
-        {
+        {   
             rigidbody2d.AddTorque(torqueAmount);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
@@ -47,5 +50,9 @@ public class PlayerController : MonoBehaviour
         }
         else surfaceEffector2D.speed = baseSpeed;
         
+    }
+    public void DisablePlayerController()
+    {
+        canMove = false;
     }
 }
